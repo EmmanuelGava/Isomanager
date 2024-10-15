@@ -1,10 +1,13 @@
-# Ignorar carpetas generadas por Visual Studio
-.vs/
-*.vscode/
-*.user
-*.suo
-*.cache
-*.log
-bin/
-obj/
 
+Isomanager/.vs/Isomanager/CopilotIndices/0.2.1657.32929/CodeChunks.db-wal
+Isomanager/.vs/Isomanager/copilot-chat/5de8bc54/sessions/9739c4a5-328a-46e9-91e5-50a716cebe20
+/Isomanager/.vs/Isomanager/copilot-chat
+/Isomanager/.vs/Isomanager/CopilotIndices
+/Isomanager/.vs/Isomanager/FileContentIndex
+Isomanager/.vs/Isomanager/v17/HierarchyCache.v1.txt
+Isomanager/.vs/Isomanager/config/applicationhost.config
+Isomanager/.vs/VSWorkspaceState.json
+Isomanager/.vs/Isomanager/v17/DocumentLayout.json
+Isomanager/.vs/Isomanager/v17/DocumentLayout.backup.json
+Isomanager/.vs/Isomanager/v17/.suo
+Isomanager/.vs/slnx.sqlite

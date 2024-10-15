@@ -16,6 +16,8 @@ namespace Isomanager
         public DbSet<MapeoProcesosInternos> MapeoProcesosInternos { get; set; }
         public DbSet<AlcanceSistemaGestion> AlcanceSistemaGestiones { get; set; }
         public DbSet<FactoresExternos> FactoresExternos { get; set; }
+        public DbSet<Mejora> Mejora { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
 
         // Constructor para la conexión a la base de datos
         public MyDbContext() : base("name=MyDbContext")

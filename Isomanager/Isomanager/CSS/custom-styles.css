@@ -1,0 +1,224 @@
+﻿[data-bs-theme="dark"] .btn-primary,
+[data-bs-theme="dark"] .btn-secondary,
+[data-bs-theme="dark"] .btn-success,
+[data-bs-theme="dark"] .btn-danger,
+[data-bs-theme="dark"] .btn-warning,
+[data-bs-theme="dark"] .btn-info {
+    background-color: #000000;
+    border-color: #333333;
+    color: #ffffff;
+}
+
+    [data-bs-theme="dark"] .btn-primary:hover,
+    [data-bs-theme="dark"] .btn-secondary:hover,
+    [data-bs-theme="dark"] .btn-success:hover,
+    [data-bs-theme="dark"] .btn-danger:hover,
+    [data-bs-theme="dark"] .btn-warning:hover,
+    [data-bs-theme="dark"] .btn-info:hover {
+        background-color: #333333;
+        border-color: #666666;
+        color: #ffffff;
+    }
+
+[data-bs-theme="dark"] .btn-outline-primary,
+[data-bs-theme="dark"] .btn-outline-secondary,
+[data-bs-theme="dark"] .btn-outline-success,
+[data-bs-theme="dark"] .btn-outline-danger,
+[data-bs-theme="dark"] .btn-outline-warning,
+[data-bs-theme="dark"] .btn-outline-info {
+    border-color: #000000;
+    color: #ffffff;
+}
+
+    [data-bs-theme="dark"] .btn-outline-primary:hover,
+    [data-bs-theme="dark"] .btn-outline-secondary:hover,
+    [data-bs-theme="dark"] .btn-outline-success:hover,
+    [data-bs-theme="dark"] .btn-outline-danger:hover,
+    [data-bs-theme="dark"] .btn-outline-warning:hover,
+    [data-bs-theme="dark"] .btn-outline-info:hover {
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+[data-bs-theme="dark"] .card {
+    background-color: #f8f9fa; /* Un gris muy claro, casi blanco */
+    border: 1px solid #343a40; /* Borde negro sutil */
+    color: #212529; /* Texto oscuro para contrastar con el fondo claro */
+}
+
+[data-bs-theme="dark"] .card-header,
+[data-bs-theme="dark"] .card-footer {
+    background-color: #e9ecef; /* Un gris un poco más oscuro para el encabezado y pie de la card */
+    border-color: #343a40; /* Borde negro sutil */
+}
+
+[data-bs-theme="dark"] .card-title {
+    color: #212529; /* Asegura que el título sea oscuro */
+}
+
+[data-bs-theme="dark"] .card-text {
+    color: #495057; /* Un color de texto ligeramente más claro para el cuerpo de la card */
+}
+
+
+
+
+[data-bs-theme="dark"] .card-header,
+[data-bs-theme="dark"] .card-footer {
+    background-color: #dee2e6;
+    border-color: #343a40;
+}
+
+[data-bs-theme="dark"] .table {
+    color: #000000; /* Texto negro */
+}
+
+    [data-bs-theme="dark"] .table > :not(caption) > * > * {
+        background-color: #ffffff; /* Fondo blanco para todas las celdas */
+        color: #000000; /* Texto negro */
+    }
+
+[data-bs-theme="dark"] .table-bordered {
+    border-color: #000000; /* Borde negro para la tabla */
+}
+
+    [data-bs-theme="dark"] .table-bordered > :not(caption) > * {
+        border-width: 1px 0; /* Borde superior e inferior para las filas */
+    }
+
+        [data-bs-theme="dark"] .table-bordered > :not(caption) > * > * {
+            border-width: 0 1px; /* Borde izquierdo y derecho para las celdas */
+            border-color: #000000; /* Borde negro para las celdas */
+        }
+
+/* Para tablas con rayas (striped) */
+[data-bs-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: #f8f9fa; /* Un gris muy claro para las filas impares */
+    color: #000000;
+}
+
+/* Para filas con hover */
+[data-bs-theme="dark"] .table-hover > tbody > tr:hover > * {
+    background-color: #e9ecef; /* Un gris claro para el hover */
+    color: #000000;
+}
+
+/* Para el encabezado de la tabla */
+[data-bs-theme="dark"] .table > thead {
+    background-color: #e9ecef; /* Un gris claro para el encabezado */
+    color: #000000;
+}
+
+[data-bs-theme="dark"] textarea,
+[data-bs-theme="dark"] textarea.form-control {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+}
+
+    [data-bs-theme="dark"] textarea:focus,
+    [data-bs-theme="dark"] textarea.form-control:focus {
+        background-color: #ffffff;
+        color: #000000;
+        border-color: #0056b3;
+        box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+    }
+
+    [data-bs-theme="dark"] textarea::placeholder,
+    [data-bs-theme="dark"] textarea.form-control::placeholder {
+        color: #6c757d;
+    }
+
+    /* Para textarea deshabilitados */
+    [data-bs-theme="dark"] textarea:disabled,
+    [data-bs-theme="dark"] textarea.form-control:disabled {
+        background-color: #e9ecef;
+        color: #6c757d;
+        border-color: #ced4da;
+    }
+
+    /* Para textarea de solo lectura */
+    [data-bs-theme="dark"] textarea:read-only,
+    [data-bs-theme="dark"] textarea.form-control:read-only {
+        background-color: #f8f9fa;
+    }
+[data-bs-theme="dark"] body {
+    background-color: #f4f4f4;
+    color: #333333;
+    font-family: Arial, sans-serif;
+}
+
+[data-bs-theme="dark"] .card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+[data-bs-theme="dark"] .card-title {
+    color: #000000;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+[data-bs-theme="dark"] .card-text {
+    color: #666666;
+}
+
+[data-bs-theme="dark"] .table {
+    color: #333333;
+}
+
+    [data-bs-theme="dark"] .table > :not(caption) > * > * {
+        background-color: #ffffff;
+        border-bottom-color: #e0e0e0;
+    }
+
+    [data-bs-theme="dark"] .table > thead {
+        background-color: #f8f8f8;
+    }
+
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    color: #333333;
+}
+
+    [data-bs-theme="dark"] .form-control:focus,
+    [data-bs-theme="dark"] .form-select:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+[data-bs-theme="dark"] .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    [data-bs-theme="dark"] .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+[data-bs-theme="dark"] .btn-dark {
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+    [data-bs-theme="dark"] .btn-dark:hover {
+        background-color: #23272b;
+        border-color: #1d2124;
+    }
+
+[data-bs-theme="dark"] .form-range::-webkit-slider-thumb {
+    background-color: #007bff;
+}
+
+[data-bs-theme="dark"] .form-range::-moz-range-thumb {
+    background-color: #007bff;
+}
+
+[data-bs-theme="dark"] .form-range::-ms-thumb {
+    background-color: #007bff;
+}
