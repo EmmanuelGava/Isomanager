@@ -143,9 +143,5 @@
         </div>
  <asp:ScriptManager ID="ScriptManager1" runat="server" />
     
-    <!-- Cargar jQuery desde CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Cargar Bootstrap desde CDN -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     
 </asp:Content>

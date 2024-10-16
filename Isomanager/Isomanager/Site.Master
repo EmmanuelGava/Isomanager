@@ -3,21 +3,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Mi aplicación ASP.NET</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
 </head>
 <body>
     <form runat="server">
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
 
-        <!-- Coloca los scripts aquí para que estén disponibles en todas las páginas -->
-        <script src="/Scripts/jquery-3.7.1.min.js"></script>
-        <script src="/Scripts/bootstrap.bundle.min.js"></script>
-    
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" runat="server" href="~/">ISO.Management</a>
@@ -45,13 +42,21 @@
                 <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
             </footer>
         </div>
-
         <!-- Agregar el ContentPlaceHolder para los scripts -->
         <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
+        
+
     </form>
 
-    <!-- Cargar los scripts de Bootstrap y jQuery -->
-    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+    <%--   <script src="/Scripts/jquery-3.7.1.min.js"></script>
+<script src="/Scripts/bootstrap.bundle.min.js"></script>--%>
+    <!-- jQuery desde CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 </body>
 </html>

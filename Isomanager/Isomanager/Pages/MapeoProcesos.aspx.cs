@@ -1,72 +1,80 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-    using Isomanager.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Isomanager.Models;
 
-    namespace Isomanager.Pages
+namespace Isomanager.Pages
+{
+    public partial class MapeoProcesos : System.Web.UI.Page
     {
-        public partial class MapeoProcesos : System.Web.UI.Page
+        protected void Page_Load(object sender, EventArgs e)
         {
-            protected void Page_Load(object sender, EventArgs e)
+            if (!IsPostBack)
             {
-                if (!IsPostBack)
+                if (Session["NormaId"] != null)
                 {
-
-                    if (Session["NormaId"] != null)
+                    int normaId = (int)Session["NormaId"];
+                    using (var context = new MyDbContext())
                     {
-                        int normaId = (int)Session["NormaId"];
-                        using (var context = new MyDbContext())
+                        var norma = context.Normas.FirstOrDefault(n => n.NormaId == normaId);
+                        if (norma != null)
                         {
-                            var norma = context.Normas.FirstOrDefault(n => n.NormaId == normaId);
-                            if (norma != null)
-                            {
-                                lblNormaActual.Text = $"Norma: {norma.Titulo}";
-                            }
+                            lblNormaActual.Text = $"Norma: {norma.Titulo}";
                         }
                     }
-                    else
-                    {
-                        lblNormaActual.Text = "No se ha seleccionado una norma";
-                    }
-
-                    CargarProcesosClave();
-                    CargarProcesosDropDown();
-                    //CargarCambios();
                 }
+                else
+                {
+                    lblNormaActual.Text = "No se ha seleccionado una norma";
+                }
+
+                CargarProcesosClave();
+                CargarProcesosDropDown();
+            }
+        }
+
+        private void CargarProcesosClave()
+        {
+            if (Session["contextoId"] == null)
+            {
+                lblNormaActual.Text = "No se ha seleccionado un contexto válido.";
+                return;
             }
 
+            int contextoId = (int)Session["contextoId"]; // Validar que contextoId exista
 
-            private void CargarProcesosClave()
+            using (var context = new MyDbContext())
             {
-                // Obtener el ContextoId de la sesión (o de otra fuente)
-                int contextoId = (int)Session["contextoId"]; // Asegúrate de que este valor sea válido
-
-                using (var context = new MyDbContext())
+                try
                 {
-                    // Cargar solo los procesos que pertenecen al contexto específico
+                    // Obtener procesos desde la base de datos
                     var procesosClave = context.Procesos
-                        .Where(p => p.ContextoId == contextoId) // Filtrar por ContextoId
-                        .ToList(); // Recuperar los procesos filtrados
+                        .Where(p => p.ContextoId == contextoId)
+                        .ToList();
 
-                    // Crear ejemplos estáticos
+                    // Crear ejemplos estáticos para mostrar si no hay datos en la base
                     var ejemplosEstaticos = new List<Proceso>
-            {
-                new Proceso { Nombre = "Gestión de Calidad", Propietario = "Equipo de Calidad", Objetivo = "Asegurar la calidad de los productos y servicios", ContextoId = contextoId },
-                new Proceso { Nombre = "Producción", Propietario = "Dpto. de Producción", Objetivo = "Fabricar productos que cumplan los estándares", ContextoId = contextoId },
-                new Proceso { Nombre = "Ventas", Propietario = "Dpto. de Ventas", Objetivo = "Maximizar ingresos y satisfacción del cliente", ContextoId = contextoId }
-            };
+                    {
+                        new Proceso { Nombre = "Gestión de Calidad", Propietario = "Equipo de Calidad", Objetivo = "Asegurar la calidad de los productos y servicios", ContextoId = contextoId },
+                        new Proceso { Nombre = "Producción", Propietario = "Dpto. de Producción", Objetivo = "Fabricar productos que cumplan los estándares", ContextoId = contextoId },
+                        new Proceso { Nombre = "Ventas", Propietario = "Dpto. de Ventas", Objetivo = "Maximizar ingresos y satisfacción del cliente", ContextoId = contextoId }
+                    };
 
-                    // Combinar los procesos de la base de datos con los ejemplos estáticos
+                    // Combinar los datos de la base con los ejemplos estáticos
                     procesosClave.AddRange(ejemplosEstaticos);
 
-                    // Asignar la lista combinada al DataSource del GridView
+                    // Asignar la lista al GridView
                     gvProcesosClave.DataSource = procesosClave;
                     gvProcesosClave.DataBind();
                 }
+                catch (Exception ex)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", $"alert('Ocurrió un error al cargar los procesos: {ex.Message}');", true);
+                }
             }
-
+        }
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
@@ -83,14 +91,12 @@
                     txtEditObjetivo.Text = proceso.Objetivo;
 
                     Session["EditProcesoId"] = procesoId;
-                    // Limpiar el estado de validación
-                    
+
+                    // Mostrar el modal de edición
                     ScriptManager.RegisterStartupScript(this, GetType(), "showEditModal", "$('#editProcessModal').modal('show');", true);
                 }
             }
         }
-
-
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -98,22 +104,10 @@
             string propietario = txtEditPropietario.Text.Trim();
             string objetivo = txtEditObjetivo.Text.Trim();
 
-            // Validar los campos
-            if (string.IsNullOrEmpty(nombre))
+            // Validación de campos obligatorios
+            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(propietario) || string.IsNullOrEmpty(objetivo))
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El nombre es obligatorio.');", true);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(propietario))
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El propietario es obligatorio.');", true);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(objetivo))
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El objetivo es obligatorio.');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Todos los campos son obligatorios.');", true);
                 return;
             }
 
@@ -141,7 +135,7 @@
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Ocurrió un error: " + ex.Message + "');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", $"alert('Ocurrió un error: {ex.Message}');", true);
             }
         }
 
@@ -163,99 +157,77 @@
         }
 
         private void CargarProcesosDropDown()
+        {
+            ddlEvalProcess.Items.Clear();
+            ddlEvalProcess.Items.Add(new ListItem("Gestión de Calidad", "1"));
+            ddlEvalProcess.Items.Add(new ListItem("Producción", "2"));
+            ddlEvalProcess.Items.Add(new ListItem("Ventas", "3"));
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            string nombre = txtNombre.Text.Trim();
+            string propietario = txtPropietario.Text.Trim();
+            string objetivo = txtObjetivo.Text.Trim();
+
+            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(propietario) || string.IsNullOrEmpty(objetivo))
             {
-                ddlEvalProcess.Items.Clear();
-                ddlEvalProcess.Items.Add(new ListItem("Gestión de Calidad", "1"));
-                ddlEvalProcess.Items.Add(new ListItem("Producción", "2"));
-                ddlEvalProcess.Items.Add(new ListItem("Ventas", "3"));
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Todos los campos son obligatorios.');", true);
+                return;
             }
 
-            //private void cargarcambios()
-            //{
-            //    var cambios = new list<cambioauditoria>
-            //    {
-            //        new cambioauditoria { fecha = datetime.parse("2023-05-15"), proceso = "gestión de calidad", cambio = "actualización de kpis", responsable = "juan pérez" }
-            //    };
-            //    gvcambios.datasource = cambios;
-            //    gvcambios.databind();
-            //}
-
-            protected void btnGuardar_Click(object sender, EventArgs e)
+            try
             {
-                string nombre = txtNombre.Text.Trim();
-                string propietario = txtPropietario.Text.Trim();
-                string objetivo = txtObjetivo.Text.Trim();
-
-                try
+                using (var context = new MyDbContext())
                 {
-                    using (var context = new MyDbContext())
+                    if (Session["EditProcesoId"] != null)
                     {
-                        // Verificar si se está editando un proceso existente
-                        if (Session["EditProcesoId"] != null)
+                        int procesoId = (int)Session["EditProcesoId"];
+                        var proceso = context.Procesos.FirstOrDefault(p => p.ProcesoId == procesoId);
+                        if (proceso != null)
                         {
-                            int procesoId = (int)Session["EditProcesoId"];
-                            var proceso = context.Procesos.FirstOrDefault(p => p.ProcesoId == procesoId);
-                            if (proceso != null)
-                            {
-                                // Actualizar los campos del proceso
-                                proceso.Nombre = nombre;
-                                proceso.Propietario = propietario;
-                                proceso.Objetivo = objetivo;
-
-                                // Guardar cambios
-                                context.SaveChanges();
-                            }
-                        }
-                        else
-                        {
-                            // Crear un nuevo proceso
-                            var nuevoProceso = new Proceso
-                            {
-                                Nombre = nombre,
-                                Propietario = propietario,
-                                Objetivo = objetivo,
-                                ContextoId = (int)Session["contextoId"] // Asegúrate de que este valor sea válido
-                            };
-
-                            context.Procesos.Add(nuevoProceso);
+                            proceso.Nombre = nombre;
+                            proceso.Propietario = propietario;
+                            proceso.Objetivo = objetivo;
                             context.SaveChanges();
                         }
-
-                        // Limpiar la sesión
-                        Session.Remove("EditProcesoId");
-
-                        // Recargar los procesos
-                        CargarProcesosClave();
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Manejar errores
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Ocurrió un error: " + ex.Message + "');", true);
+                    else
+                    {
+                        var nuevoProceso = new Proceso
+                        {
+                            Nombre = nombre,
+                            Propietario = propietario,
+                            Objetivo = objetivo,
+                            ContextoId = (int)Session["contextoId"]
+                        };
+
+                        context.Procesos.Add(nuevoProceso);
+                        context.SaveChanges();
+                    }
+
+                    Session.Remove("EditProcesoId");
+                    CargarProcesosClave();
                 }
             }
-
-
-
-
-
-
-
-            public void btnSaveEvaluation_Click(object sender, EventArgs e)
+            catch (Exception ex)
             {
-                string procesoseleccionado = ddlEvalProcess.SelectedItem.Text;
-                string sugerencias = txtImprovements.Text;
-
-                // aquí implementarías la lógica para guardar la evaluación en la base de datos
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('evaluación guardada para el proceso: " + procesoseleccionado + "');", true);
-            }
-
-            protected void btnProgramarAuditoria_Click(object sender, EventArgs e)
-            {
-                Response.Redirect("programarauditoria.aspx");
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", $"alert('Ocurrió un error: {ex.Message}');", true);
             }
         }
 
+        public void btnSaveEvaluation_Click(object sender, EventArgs e)
+        {
+            string procesoSeleccionado = ddlEvalProcess.SelectedItem.Text;
+            string sugerencias = txtImprovements.Text;
 
+            // Lógica para guardar la evaluación en la base de datos (pendiente)
+            ScriptManager.RegisterStartupScript(this, GetType(), "showalert", $"alert('Evaluación guardada para el proceso: {procesoSeleccionado}');", true);
+        }
 
+        protected void btnProgramarAuditoria_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("programarauditoria.aspx");
+        }
     }
+}
