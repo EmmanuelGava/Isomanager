@@ -1,41 +1,27 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Isomanager.Models
 {
     [Table("Contexto")]
-    public partial class Contexto
+    public class Contexto
     {
-        public Contexto()
-        {
-            Fodas = new HashSet<Foda>();
-        }
-
         [Key]
-        [ForeignKey("Norma")]
-        public int NormaId { get; set; }  // Esta es ahora tanto la clave primaria como la clave foránea
+        public int ContextoId { get; set; }  // Clave primaria de Contexto
 
-        // Relación con Norma
-        public virtual Norma Norma { get; set; }
+        // Relación uno a muchos con Procesos
+        public virtual ICollection<Proceso> Procesos { get; set; } = new HashSet<Proceso>();
 
-        // Relaciones con otras entidades
-        public virtual ICollection<Foda> Fodas { get; set; }
+        // Relación uno a muchos con FactoresExternos
+        public virtual ICollection<FactoresExternos> FactoresExternos { get; set; } = new HashSet<FactoresExternos>();
 
-        public int? AlcanceId { get; set; }
-        [ForeignKey("AlcanceId")]
         public virtual AlcanceSistemaGestion AlcanceSistemaGestion { get; set; }
 
-        public int? FactoresExternosId { get; set; }
-        [ForeignKey("FactoresExternosId")]
-        public virtual FactoresExternos FactoresExternos { get; set; }
+        // Relación uno a uno con Foda (ajustada)
+        public virtual Foda Foda { get; set; }  // Relación opcional
 
-        public int? MapeoId { get; set; }
-        [ForeignKey("MapeoId")]
-        public virtual MapeoProcesosInternos MapeoProcesosInternos { get; set; }
-
-        // Puedes agregar aquí otras propiedades específicas de Contexto si las necesitas
+        // Relación con Norma (propiedad de navegación)
+        public virtual Norma Norma { get; set; }  // Relación uno a uno
     }
 }

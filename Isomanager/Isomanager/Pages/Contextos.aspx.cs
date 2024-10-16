@@ -30,11 +30,31 @@ namespace Isomanager.Pages
                     lblNormaActual.Text = "No se ha seleccionado una norma";
                 }
 
-
                 // Asegúrate de que los paneles o secciones estén ocultos al cargar la página inicialmente
                 CargarFODA.Visible = false;
                 MostrarFODA.Visible = false;
-               
+
+                // Comprobar si hay un ContextoId en la sesión
+                int? contextoId = Session["contextoId"] as int?;
+                if (contextoId.HasValue)
+                {
+                    using (var context = new MyDbContext())
+                    {
+                        // Verificar si ya existe un FODA para este ContextoId
+                        var fodaExistente = context.Fodas.FirstOrDefault(f => f.ContextoId == contextoId.Value);
+                        if (fodaExistente != null)
+                        {
+                            // Cargar los datos del FODA en los labels
+                            lblFortalezas.Text = fodaExistente.Fortalezas;
+                            lblDebilidades.Text = fodaExistente.Debilidades;
+                            lblOportunidades.Text = fodaExistente.Oportunidades;
+                            lblAmenazas.Text = fodaExistente.Amenazas;
+
+                            // Mostrar el panel de resultados
+                            MostrarFODA.Visible = true;
+                        }
+                    }
+                }
             }
         }
 
@@ -58,25 +78,32 @@ namespace Isomanager.Pages
             lblOportunidades.Text = txtOportunidades.Text;
             lblAmenazas.Text = txtAmenazas.Text;
 
-            // Asignar el NormaId desde la sesión
-            int? normaId = Session["NormaId"] as int?;
+            // Asignar el ContextoId desde la sesión
+            int? contextoId = Session["contextoId"] as int?;
 
-            if (normaId.HasValue)
+            if (contextoId.HasValue)
             {
                 using (var context = new MyDbContext())
                 {
+                    // Verificar si el ContextoId existe
+                    var contextoExistente = context.Contextos.FirstOrDefault(c => c.ContextoId == contextoId.Value);
+                    if (contextoExistente == null)
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error: El Contexto no existe.');", true);
+                        return;
+                    }
+
                     var foda = new Foda
                     {
-                        NormaId = normaId.Value,
+                        ContextoId = contextoId.Value, // Usar el ContextoId de la sesión
                         Fortalezas = txtFortalezas.Text,
                         Debilidades = txtDebilidades.Text,
                         Oportunidades = txtOportunidades.Text,
                         Amenazas = txtAmenazas.Text,
-                        
                     };
 
-                    // Verificar si ya existe un FODA para esta Norma
-                    var fodaExistente = context.Fodas.FirstOrDefault(f => f.NormaId == foda.NormaId);
+                    // Verificar si ya existe un FODA para este ContextoId
+                    var fodaExistente = context.Fodas.FirstOrDefault(f => f.ContextoId == foda.ContextoId);
                     if (fodaExistente != null)
                     {
                         // Actualizar el FODA existente
@@ -84,7 +111,6 @@ namespace Isomanager.Pages
                         fodaExistente.Debilidades = foda.Debilidades;
                         fodaExistente.Oportunidades = foda.Oportunidades;
                         fodaExistente.Amenazas = foda.Amenazas;
-                        
                     }
                     else
                     {
@@ -101,8 +127,8 @@ namespace Isomanager.Pages
             }
             else
             {
-                // Mostrar mensaje de error si no hay NormaId
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error: No se ha seleccionado una Norma.');", true);
+                // Mostrar mensaje de error si no hay ContextoId
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error: No se ha seleccionado un Contexto.');", true);
             }
 
             // Limpiar los campos de texto después de guardar

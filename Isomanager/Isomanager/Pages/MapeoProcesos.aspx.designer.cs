@@ -15,6 +15,15 @@ namespace Isomanager.Pages
     {
 
         /// <summary>
+        /// Control lblNormaActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNormaActual;
+
+        /// <summary>
         /// Control gvProcesosClave.
         /// </summary>
         /// <remarks>
@@ -24,156 +33,138 @@ namespace Isomanager.Pages
         protected global::System.Web.UI.WebControls.GridView gvProcesosClave;
 
         /// <summary>
-        /// Control btnAgregarProceso.
+        /// Control btnAddProcess.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarProceso;
+        protected global::System.Web.UI.WebControls.Button btnAddProcess;
 
         /// <summary>
-        /// Control phDiagramaFlujo.
+        /// Control GridView1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phDiagramaFlujo;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
 
         /// <summary>
-        /// Control btnEditarDiagrama.
+        /// Control txtEditNombre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditarDiagrama;
+        protected global::System.Web.UI.WebControls.TextBox txtEditNombre;
 
         /// <summary>
-        /// Control ddlProcesos.
+        /// Control txtEditPropietario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProcesos;
+        protected global::System.Web.UI.WebControls.TextBox txtEditPropietario;
 
         /// <summary>
-        /// Control detallesProceso.
+        /// Control txtEditObjetivo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl detallesProceso;
+        protected global::System.Web.UI.WebControls.TextBox txtEditObjetivo;
 
         /// <summary>
-        /// Control lblNombreProceso.
+        /// Control btnUpdate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNombreProceso;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
 
         /// <summary>
-        /// Control lblDescripcionProceso.
+        /// Control txtNombre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescripcionProceso;
+        protected global::System.Web.UI.WebControls.TextBox txtNombre;
 
         /// <summary>
-        /// Control blEntradas.
+        /// Control txtPropietario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList blEntradas;
+        protected global::System.Web.UI.WebControls.TextBox txtPropietario;
 
         /// <summary>
-        /// Control blSalidas.
+        /// Control txtObjetivo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList blSalidas;
+        protected global::System.Web.UI.WebControls.TextBox txtObjetivo;
 
         /// <summary>
-        /// Control blRecursos.
+        /// Control btnGuardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList blRecursos;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
 
         /// <summary>
-        /// Control blKPIs.
+        /// Control ddlEvalProcess.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList blKPIs;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEvalProcess;
 
         /// <summary>
-        /// Control phInteraccionProcesos.
+        /// Control txtImprovements.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phInteraccionProcesos;
+        protected global::System.Web.UI.WebControls.TextBox txtImprovements;
 
         /// <summary>
-        /// Control gvDocumentacion.
+        /// Control btnSaveEvaluation.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDocumentacion;
+        protected global::System.Web.UI.WebControls.Button btnSaveEvaluation;
 
         /// <summary>
-        /// Control gvMejoras.
+        /// Control gvCambios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMejoras;
+        protected global::System.Web.UI.WebControls.GridView gvCambios;
 
         /// <summary>
-        /// Control btnAgregarMejora.
+        /// Control btnProgramarAuditoria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarMejora;
-
-        /// <summary>
-        /// Control gvRiesgosOportunidades.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvRiesgosOportunidades;
-
-        /// <summary>
-        /// Control btnAgregarRiesgoOportunidad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarRiesgoOportunidad;
+        protected global::System.Web.UI.WebControls.Button btnProgramarAuditoria;
     }
 }

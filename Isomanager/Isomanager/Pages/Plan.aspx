@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="~/Pages/Plan.aspx.cs" Inherits="Isomanager.Pages.Plan" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server" >
     <div class="container mt-5">
         <h1 class="text-center">Plan Completo</h1>
-         
+
         <!-- Añadir el DropDownList para seleccionar la norma -->
         <div class="row mt-4 mb-4">
             <div class="col-md-6 offset-md-3">
@@ -20,9 +21,10 @@
                             <li>Identificación de factores externos relevantes</li>
                             <li>Definición del alcance del sistema de gestión</li>
                         </ul>
-                        <a href="Contextos.aspx" class="btn btn-primary">Acceder</a>
+                        <asp:Button ID="btnGuardarContexto" runat="server" Text="Acceder" OnClick="btnGuardarContexto_Click" CssClass="btn btn-primary" />
+
                     </div>
-    
+
                 </div>
             </div>
             <div class="col-md-4 mb-4">
@@ -138,5 +140,12 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+ <asp:ScriptManager ID="ScriptManager1" runat="server" />
+    
+    <!-- Cargar jQuery desde CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Cargar Bootstrap desde CDN -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    
 </asp:Content>

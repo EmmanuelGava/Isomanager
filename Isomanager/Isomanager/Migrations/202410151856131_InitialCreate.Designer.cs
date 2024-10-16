@@ -13,7 +13,7 @@ namespace Isomanager.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202410150125057_InitialCreate"; }
+            get { return "202410151856131_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

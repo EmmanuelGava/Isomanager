@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Isomanager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace Isomanager
     {
         void Application_Start(object sender, EventArgs e)
         {
+          
             // Código que se ejecuta al iniciar la aplicación
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

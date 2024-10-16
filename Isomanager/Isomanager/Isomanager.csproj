@@ -53,10 +53,6 @@
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.3.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
@@ -184,13 +180,25 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410150125057_InitialCreate.cs" />
-    <Compile Include="Migrations\202410150125057_InitialCreate.Designer.cs">
-      <DependentUpon>202410150125057_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202410151856131_InitialCreate.cs" />
+    <Compile Include="Migrations\202410151856131_InitialCreate.Designer.cs">
+      <DependentUpon>202410151856131_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410150140591_update.cs" />
-    <Compile Include="Migrations\202410150140591_update.Designer.cs">
-      <DependentUpon>202410150140591_update.cs</DependentUpon>
+    <Compile Include="Migrations\202410151906434_codefirst.cs" />
+    <Compile Include="Migrations\202410151906434_codefirst.Designer.cs">
+      <DependentUpon>202410151906434_codefirst.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410152007186_codefirst1.cs" />
+    <Compile Include="Migrations\202410152007186_codefirst1.Designer.cs">
+      <DependentUpon>202410152007186_codefirst1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410152108024_codefirst11.cs" />
+    <Compile Include="Migrations\202410152108024_codefirst11.Designer.cs">
+      <DependentUpon>202410152108024_codefirst11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410152124195_ArregloProceso.cs" />
+    <Compile Include="Migrations\202410152124195_ArregloProceso.Designer.cs">
+      <DependentUpon>202410152124195_ArregloProceso.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AlcanceSistemaGestion.cs" />
@@ -200,10 +208,10 @@
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\FactoresExternos.cs" />
     <Compile Include="Models\Foda.cs" />
-    <Compile Include="Models\MapeoProcesosInternos.cs" />
     <Compile Include="Models\MyDbContext.cs" />
     <Compile Include="Models\Mejora.cs" />
     <Compile Include="Models\Norma.cs" />
+    <Compile Include="Models\Proceso.cs" />
     <Compile Include="Pages\Auditorias.aspx.cs">
       <DependentUpon>Auditorias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -331,11 +339,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202410150125057_InitialCreate.resx">
-      <DependentUpon>202410150125057_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410151856131_InitialCreate.resx">
+      <DependentUpon>202410151856131_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410150140591_update.resx">
-      <DependentUpon>202410150140591_update.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410151906434_codefirst.resx">
+      <DependentUpon>202410151906434_codefirst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410152007186_codefirst1.resx">
+      <DependentUpon>202410152007186_codefirst1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410152108024_codefirst11.resx">
+      <DependentUpon>202410152108024_codefirst11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410152124195_ArregloProceso.resx">
+      <DependentUpon>202410152124195_ArregloProceso.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

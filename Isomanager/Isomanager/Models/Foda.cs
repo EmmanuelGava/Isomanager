@@ -1,18 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Isomanager.Models
 {
     public partial class Foda
     {
-        [Key]
-        public int FodaId { get; set; }  // Primary key
-
-        public int NormaId { get; set; }  // Clave foránea que se relaciona con Norma (y Contexto)
-
-        [ForeignKey("NormaId")]
+        [Key, ForeignKey("Contexto")]  // Clave primaria y foránea al mismo tiempo
+        public int ContextoId { get; set; }  // Usamos ContextoId como clave primaria y foránea
         public virtual Contexto Contexto { get; set; }  // Relación con el Contexto
+
         // Propiedades para FODA
         [MaxLength]
         public string Fortalezas { get; set; }

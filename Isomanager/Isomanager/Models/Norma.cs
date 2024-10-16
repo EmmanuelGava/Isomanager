@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,7 +17,6 @@ namespace Isomanager.Models
         public DateTime FechaCreacion { get; set; }
 
         // Relación uno a uno con Contexto
-      
         public virtual Contexto Contexto { get; set; }  // Referencia al objeto Contexto
     }
 }

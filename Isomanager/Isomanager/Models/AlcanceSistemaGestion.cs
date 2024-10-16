@@ -17,9 +17,10 @@ namespace Isomanager.Models
         [Required]
         public DateTime FechaCreacion { get; set; }
 
-        public int NormaId { get; set; }  // Clave foránea que se relaciona con Norma (y Contexto)
+        // Clave foránea que se relaciona con Contexto
+        public int ContextoId { get; set; }
 
-        [ForeignKey("NormaId")]
-        public virtual Contexto Contexto { get; set; }  // Relación con el Contexto }
+        [ForeignKey("ContextoId")]
+        public virtual Contexto Contexto { get; set; }  // Relación con Contexto
     }
 }

@@ -38,16 +38,16 @@ namespace Isomanager.Pages
                         FechaCreacion = DateTime.Now
                     };
 
-                    // Crear una nueva instancia de Contexto y asociarla con la nueva Norma
-                    var nuevoContexto = new Contexto
-                    {
-                        Norma = nuevaNorma
-                        // Aquí puedes agregar otras propiedades del Contexto si las hay
-                    };
+                    //// Crear una nueva instancia de Contexto y asociarla con la nueva Norma
+                    //var nuevoContexto = new Contexto
+                    //{
+                    //    Norma = nuevaNorma
+                    //    // Aquí puedes agregar otras propiedades del Contexto si las hay
+                    //};
 
                     // Agregar tanto la Norma como el Contexto al contexto de EF
                     context.Normas.Add(nuevaNorma);
-                    context.Contextos.Add(nuevoContexto);
+                    //context.Contextos.Add(nuevoContexto);
 
                     // Guardar todos los cambios de una vez
                     context.SaveChanges();
