@@ -10,7 +10,6 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Isomanager.Models.MyDbContext";
         }
 
         protected override void Seed(Isomanager.Models.MyDbContext context)

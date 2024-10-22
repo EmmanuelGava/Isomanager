@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Isomanager.Models
@@ -15,7 +16,19 @@ namespace Isomanager.Models
         // Clave foránea que se relaciona con Contexto
         [ForeignKey("Contexto")]
         public int ContextoId { get; set; }  // Relación con Contexto
-
         public virtual Contexto Contexto { get; set; }  // Propiedad de navegación
+
+        // Usuario relacionado
+        public int? UsuarioId { get; set; }  // ID del responsable del proceso
+        public Usuarios Responsable { get; set; }  // Propiedad de navegación hacia el usuario responsable
+
+        public List<MejoraProceso> Mejoras { get; set; }
+        public List<CambioProceso> Cambios { get; set; }
+
+        public Proceso()
+        {
+            Mejoras = new List<MejoraProceso>();
+            Cambios = new List<CambioProceso>();
+        }
     }
 }

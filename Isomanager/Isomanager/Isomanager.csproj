@@ -122,8 +122,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="CSS\custom-styles.css" />
     <Content Include="CSS\Site.css" />
+    <Content Include="FactoresExternosPage.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Default.aspx" />
+    <Content Include="Pages\Factores.aspx" />
     <Content Include="Pages\Auditorias.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Contextos.aspx" />
@@ -202,36 +204,62 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410151856131_InitialCreate.cs" />
-    <Compile Include="Migrations\202410151856131_InitialCreate.Designer.cs">
-      <DependentUpon>202410151856131_InitialCreate.cs</DependentUpon>
+    <Compile Include="FactoresExternosPage.aspx.cs">
+      <DependentUpon>FactoresExternosPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Migrations\202410151906434_codefirst.cs" />
-    <Compile Include="Migrations\202410151906434_codefirst.Designer.cs">
-      <DependentUpon>202410151906434_codefirst.cs</DependentUpon>
+    <Compile Include="FactoresExternosPage.aspx.designer.cs">
+      <DependentUpon>FactoresExternosPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410152007186_codefirst1.cs" />
-    <Compile Include="Migrations\202410152007186_codefirst1.Designer.cs">
-      <DependentUpon>202410152007186_codefirst1.cs</DependentUpon>
+    <Compile Include="Migrations\202410220504484_cambiofactores.cs" />
+    <Compile Include="Migrations\202410220504484_cambiofactores.Designer.cs">
+      <DependentUpon>202410220504484_cambiofactores.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410152108024_codefirst11.cs" />
-    <Compile Include="Migrations\202410152108024_codefirst11.Designer.cs">
-      <DependentUpon>202410152108024_codefirst11.cs</DependentUpon>
+    <Compile Include="Pages\Factores.aspx.cs">
+      <DependentUpon>Factores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Migrations\202410152124195_ArregloProceso.cs" />
-    <Compile Include="Migrations\202410152124195_ArregloProceso.Designer.cs">
-      <DependentUpon>202410152124195_ArregloProceso.cs</DependentUpon>
+    <Compile Include="Pages\Factores.aspx.designer.cs">
+      <DependentUpon>Factores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410160643071_InitialCreate.cs" />
+    <Compile Include="Migrations\202410160643071_InitialCreate.Designer.cs">
+      <DependentUpon>202410160643071_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410212053330_nuevamigracion.cs" />
+    <Compile Include="Migrations\202410212053330_nuevamigracion.Designer.cs">
+      <DependentUpon>202410212053330_nuevamigracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410212124187_MakeUsuarioIdNullable.cs" />
+    <Compile Include="Migrations\202410212124187_MakeUsuarioIdNullable.Designer.cs">
+      <DependentUpon>202410212124187_MakeUsuarioIdNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410212138321_UpdateMejoraProceso.cs" />
+    <Compile Include="Migrations\202410212138321_UpdateMejoraProceso.Designer.cs">
+      <DependentUpon>202410212138321_UpdateMejoraProceso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410212230586_UpdateValidacion.cs" />
+    <Compile Include="Migrations\202410212230586_UpdateValidacion.Designer.cs">
+      <DependentUpon>202410212230586_UpdateValidacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410220046150_UpdateValidacion1.cs" />
+    <Compile Include="Migrations\202410220046150_UpdateValidacion1.Designer.cs">
+      <DependentUpon>202410220046150_UpdateValidacion1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AlcanceSistemaGestion.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Models\AuditoriaInternaProceso.cs" />
+    <Compile Include="Models\CambioProceso.cs" />
     <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\EvaluacionProceso.cs" />
     <Compile Include="Models\FactoresExternos.cs" />
     <Compile Include="Models\Foda.cs" />
+    <Compile Include="Models\KPI.cs" />
+    <Compile Include="Models\MejoraProceso.cs" />
     <Compile Include="Models\MyDbContext.cs" />
-    <Compile Include="Models\Mejora.cs" />
     <Compile Include="Models\Norma.cs" />
     <Compile Include="Models\Proceso.cs" />
     <Compile Include="Pages\Auditorias.aspx.cs">
@@ -315,7 +343,7 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Usuarios.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -339,20 +367,26 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202410151856131_InitialCreate.resx">
-      <DependentUpon>202410151856131_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410160643071_InitialCreate.resx">
+      <DependentUpon>202410160643071_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410151906434_codefirst.resx">
-      <DependentUpon>202410151906434_codefirst.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410212053330_nuevamigracion.resx">
+      <DependentUpon>202410212053330_nuevamigracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410152007186_codefirst1.resx">
-      <DependentUpon>202410152007186_codefirst1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410212124187_MakeUsuarioIdNullable.resx">
+      <DependentUpon>202410212124187_MakeUsuarioIdNullable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410152108024_codefirst11.resx">
-      <DependentUpon>202410152108024_codefirst11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410212138321_UpdateMejoraProceso.resx">
+      <DependentUpon>202410212138321_UpdateMejoraProceso.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410152124195_ArregloProceso.resx">
-      <DependentUpon>202410152124195_ArregloProceso.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410212230586_UpdateValidacion.resx">
+      <DependentUpon>202410212230586_UpdateValidacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410220046150_UpdateValidacion1.resx">
+      <DependentUpon>202410220046150_UpdateValidacion1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410220504484_cambiofactores.resx">
+      <DependentUpon>202410220504484_cambiofactores.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

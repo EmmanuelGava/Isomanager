@@ -13,8 +13,14 @@ namespace Isomanager.Models
         public DbSet<Proceso> Procesos { get; set; }
         public DbSet<AlcanceSistemaGestion> AlcanceSistemaGestiones { get; set; }
         public DbSet<FactoresExternos> FactoresExternos { get; set; }
-        public DbSet<Mejora> Mejora { get; set; }
-        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
+        // Nuevas clases
+        public DbSet<CambioProceso> CambioProcesos { get; set; }  // Agrega el DbSet para CambioProceso
+        public DbSet<AuditoriaInternaProceso> AuditoriaInternaProcesos { get; set; }  // Agrega el DbSet para AuditoriaInternaProceso
+        public DbSet<MejoraProceso> MejoraProcesos { get; set; }  // Agrega el DbSet para MejoraProceso
+        public DbSet<KPI> KPI { get; set; }
+        public DbSet<EvaluacionProceso>EvaluacionProcesos { get; set; }
+        
 
         // Constructor para la conexión a la base de datos
         public MyDbContext() : base("name=MyDbContext")
@@ -29,37 +35,90 @@ namespace Isomanager.Models
             // Quitar la convención de pluralización automática de nombres de tablas
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            // Relación entre Norma y Contexto (uno a uno opcional)
             modelBuilder.Entity<Norma>()
-        .HasOptional(n => n.Contexto)  // Norma tiene un Contexto opcional
-        .WithRequired(c => c.Norma)    // Contexto tiene una Norma requerida
-        .Map(m => m.MapKey("NormaId"));  // Define la clave foránea
+                .HasOptional(n => n.Contexto)
+                .WithRequired(c => c.Norma)
+                .Map(m => m.MapKey("NormaId"));
 
-            // Relación uno a muchos entre Contexto y Proceso
+            // Relación entre Contexto y Proceso (uno a muchos)
             modelBuilder.Entity<Contexto>()
-                .HasMany(c => c.Procesos) // Un Contexto tiene muchos Procesos
-                .WithRequired(p => p.Contexto) // Cada Proceso requiere un Contexto
-                .HasForeignKey(p => p.ContextoId) // Especificar la clave foránea
-                .WillCascadeOnDelete(false); // No eliminar Procesos al eliminar Contexto
+                .HasMany(c => c.Procesos)
+                .WithRequired(p => p.Contexto)
+                .HasForeignKey(p => p.ContextoId)
+                .WillCascadeOnDelete(false);
 
-            // Relación uno a muchos entre Contexto y FactoresExternos
+            // Relación entre Contexto y FactoresExternos (uno a muchos)
             modelBuilder.Entity<Contexto>()
                 .HasMany(c => c.FactoresExternos)
                 .WithRequired(f => f.Contexto)
-                .HasForeignKey(f => f.ContextoId)  // Clave foránea explícita
+                .HasForeignKey(f => f.ContextoId)
                 .WillCascadeOnDelete(false);
 
-            // Relación uno a uno entre Contexto y Foda (ajustada)
+            // Relación entre Contexto y Foda (uno a uno opcional)
             modelBuilder.Entity<Contexto>()
-                .HasOptional(c => c.Foda)  // Contexto puede tener un Foda opcional
-                .WithRequired(f => f.Contexto)  // Foda debe tener un Contexto
-                .WillCascadeOnDelete(false);  // Evitar borrado en cascada
+                .HasOptional(c => c.Foda)
+                .WithRequired(f => f.Contexto)
+                .WillCascadeOnDelete(false);
 
-            // Relación uno a uno entre Contexto y AlcanceSistemaGestion
+            // Relación entre Contexto y AlcanceSistemaGestion (uno a uno opcional)
             modelBuilder.Entity<Contexto>()
                 .HasOptional(c => c.AlcanceSistemaGestion)
                 .WithMany()
                 .WillCascadeOnDelete(false);
+
+            // Relación entre Proceso y Usuario (responsable, obligatoria)
+            modelBuilder.Entity<Proceso>()
+                .HasRequired(p => p.Responsable)
+                .WithMany(u => u.Procesos)
+                .HasForeignKey(p => p.UsuarioId)
+                .WillCascadeOnDelete(false);
+
+            // Relación entre Proceso y MejoraProceso (uno a muchos)
+            modelBuilder.Entity<MejoraProceso>()
+                .HasRequired(m => m.Proceso)
+                .WithMany(p => p.Mejoras)
+                .HasForeignKey(m => m.ProcesoId)
+                .WillCascadeOnDelete(true);
+
+            // Relación entre Proceso y CambioProceso (uno a muchos)
+            modelBuilder.Entity<CambioProceso>()
+                .HasRequired(c => c.Proceso)
+                .WithMany(p => p.Cambios)
+                .HasForeignKey(c => c.ProcesoId)
+                .WillCascadeOnDelete(true);
+
+         
+
+            // Relación entre Usuario y Proceso
+            modelBuilder.Entity<Usuarios>()
+                .HasMany(u => u.Procesos)  // Un Usuario puede tener muchos Procesos
+                .WithRequired(p => p.Responsable)  // Cada Proceso tiene un Responsable (Usuario)
+                .HasForeignKey(p => p.UsuarioId)
+                .WillCascadeOnDelete(false);  // No eliminar el usuario si se elimina un proceso
+
+            // Relación entre Usuario y CambioProceso
+            modelBuilder.Entity<Usuarios>()
+                .HasMany(u => u.CambiosRealizados)
+                .WithRequired(c => c.RealizadoPor)
+                .HasForeignKey(c => c.UsuarioId)
+                .WillCascadeOnDelete(false);
+
+            // Relación entre Usuario y AuditoriaInternaProceso
+            modelBuilder.Entity<Usuarios>()
+                .HasMany(u => u.AuditoriasRealizadas)
+                .WithRequired(a => a.Auditor)
+                .HasForeignKey(a => a.UsuarioId)
+                .WillCascadeOnDelete(false);
+
+            // Relación entre Usuario y MejoraProceso
+            modelBuilder.Entity<Usuarios>()
+                .HasMany(u => u.MejorasSugeridas)
+                .WithRequired(m => m.SugeridoPor)
+                .HasForeignKey(m => m.UsuarioId)
+                .WillCascadeOnDelete(false);
         }
+
 
     }
 }

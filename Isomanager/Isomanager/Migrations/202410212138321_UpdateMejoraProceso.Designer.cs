@@ -7,13 +7,13 @@ namespace Isomanager.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class codefirst11 : IMigrationMetadata
+    public sealed partial class UpdateMejoraProceso : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(codefirst11));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateMejoraProceso));
         
         string IMigrationMetadata.Id
         {
-            get { return "202410152108024_codefirst11"; }
+            get { return "202410212138321_UpdateMejoraProceso"; }
         }
         
         string IMigrationMetadata.Source

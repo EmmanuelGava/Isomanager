@@ -95,35 +95,166 @@
 
                         <div class="mb-3">
                             <label for="ddlEvalProcess" class="form-label">Seleccionar Proceso</label>
-                            <asp:DropDownList ID="ddlEvalProcess" runat="server" CssClass="form-select"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlEvalProcess" runat="server" CssClass="form-select" OnSelectedIndexChanged="ddlEvalProcess_SelectedIndexChanged"></asp:DropDownList>
                         </div>
 
                         <div class="mb-3">
-                            <label for="txtImprovements" class="form-label">Sugerencias de Mejora</label>
-                            <asp:TextBox ID="txtImprovements" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox>
+                            <label for="txtDescripcion" class="form-label">Descripción de la Mejora</label>
+                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
 
-                        <asp:Button ID="btnSaveEvaluation" runat="server" Text="Guardar Evaluación" CssClass="btn btn-primary" OnClick="btnSaveEvaluation_Click" />
+                        <div class="mb-3">
+                            <label for="txtAreaMejora" class="form-label">Área de Mejora</label>
+                            <asp:TextBox ID="txtAreaMejora" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="txtAccionRecomendada" class="form-label">Acción Recomendada</label>
+                            <asp:TextBox ID="txtAccionRecomendada" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="txtResponsable" class="form-label">Responsable</label>
+                            <asp:TextBox ID="txtResponsable" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="txtFechaImplementacion" class="form-label">Fecha de Implementación</label>
+                            <asp:TextBox ID="txtFechaImplementacion" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                        </div>
+
+                        <asp:Button ID="btnAgregarMejora" runat="server" Text="Guardar Mejora" CssClass="btn btn-primary" OnClick="btnAgregarMejora_Click" />
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h2 class="card-title">Mejoras Sugeridas</h2>
+                        <asp:GridView ID="gvMejoras" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">
+                            <Columns>
+                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                <asp:BoundField DataField="AreaMejora" HeaderText="Área de Mejora" />
+                                <asp:BoundField DataField="AccionRecomendada" HeaderText="Acción Recomendada" />
+                                <asp:BoundField DataField="Responsable" HeaderText="Responsable" />
+                                <asp:BoundField DataField="FechaImplementacion" HeaderText="Fecha de Implementación" DataFormatString="{0:dd/MM/yyyy}" />
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+    <ContentTemplate>
+        <div class="row">
+            <!-- Columna de botones -->
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">Seguimiento de Cambios y Auditorías</h2>
-                        <p class="card-text text-muted">Registra cambios y realiza auditorías internas</p>
+                        <p class="card-text text-muted">Registra y audita los cambios en los procesos internos.</p>
 
+                        <!-- Botón para registrar un nuevo cambio -->
+                        <asp:Button ID="btnRegistrarCambio" runat="server" Text="Registrar Cambio" CssClass="btn btn-primary mb-3"
+                            data-bs-toggle="modal" data-bs-target="#registrarCambioModal" />
+
+                        <!-- Botón para programar una auditoría -->
+                        <asp:Button ID="btnProgramarAuditoria" runat="server" Text="Programar Auditoría" CssClass="btn btn-primary mb-3"
+                            data-bs-toggle="modal" data-bs-target="#programarAuditoriaModal" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna de tablas (GridView) -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Grid de seguimiento de cambios -->
+                        <h4 class="card-title">Cambios</h4>
                         <asp:GridView ID="gvCambios" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">
                             <Columns>
-                                <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:d}" SortExpression="Fecha" />
-                                <asp:BoundField DataField="Proceso" HeaderText="Proceso" SortExpression="Proceso" />
-                                <asp:BoundField DataField="Cambio" HeaderText="Cambio" SortExpression="Cambio" />
-                                <asp:BoundField DataField="Responsable" HeaderText="Responsable" SortExpression="Responsable" />
+                                <asp:BoundField DataField="ProcesoNombre" HeaderText="Proceso" />
+                                <asp:BoundField DataField="FechaCambio" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                <asp:BoundField DataField="Responsable" HeaderText="Responsable" />
                             </Columns>
                         </asp:GridView>
 
-                        <asp:Button ID="btnProgramarAuditoria" runat="server" Text="Programar Auditoría" CssClass="btn btn-primary mt-3" OnClick="btnProgramarAuditoria_Click" />
+                        <!-- Grid de auditorías -->
+                        <h4 class="card-title">Auditorías</h4>
+                        <asp:GridView ID="gvAuditorias" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">
+                            <Columns>
+                                <asp:BoundField DataField="FechaAuditoria" HeaderText="Fecha de Auditoría" DataFormatString="{0:dd/MM/yyyy}" />
+                                <asp:BoundField DataField="Responsable" HeaderText="Responsable Auditoria" />
+                                <asp:BoundField DataField="Comentarios" HeaderText="Comentarios" />
+                                
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ContentTemplate>
+</asp:UpdatePanel>
+
+        <!-- Modal para registrar un nuevo cambio -->
+        <div class="modal fade" id="registrarCambioModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registrar Cambio</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                            <ContentTemplate>
+                                <asp:DropDownList ID="ddlProcesoCambio" runat="server" CssClass="form-control"
+                                    DataTextField="Nombre" DataValueField="ProcesoId"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlProcesoCambio_SelectedIndexChanged">
+                                </asp:DropDownList>
+
+                                <asp:DropDownList ID="ddlMejoraCambio" runat="server" CssClass="form-control"
+                                    DataTextField="Descripcion" DataValueField="MejoraId">
+                                </asp:DropDownList>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+
+                        <asp:TextBox ID="txtDescripcionCambio" runat="server" CssClass="form-control mt-2"
+                            Placeholder="Descripción del Cambio"></asp:TextBox>
+                        <asp:TextBox ID="txtResponsableCambio" runat="server" CssClass="form-control mt-2"
+                            Placeholder="Responsable del Cambio"></asp:TextBox>
+                        <asp:TextBox ID="txtFechaCambio" runat="server" CssClass="form-control mt-2"
+                            TextMode="Date"></asp:TextBox>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="btnGuardarCambio" runat="server" Text="Guardar Cambio"
+                            CssClass="btn btn-primary" OnClick="btnGuardarCambio_Click" />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para programar una auditoría -->
+        <div class="modal fade" id="programarAuditoriaModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Programar Auditoría</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <asp:DropDownList ID="ddlProcesoAuditoria" runat="server" CssClass="form-control" DataTextField="Nombre" DataValueField="ProcesoId"></asp:DropDownList>
+                        <asp:TextBox ID="txtFechaAuditoria" runat="server" CssClass="form-control mt-2" TextMode="Date"></asp:TextBox>
+                        <asp:TextBox ID="txtResponsableAuditoria" runat="server" CssClass="form-control mt-2" Placeholder="Responsable de la Auditoría"></asp:TextBox>
+                        <asp:TextBox ID="txtComentarios" runat="server" CssClass="form-control mt-2" Placeholder="Comentarios"></asp:TextBox>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="btnProgramarAuditoriaModal" runat="server" Text="Programar Auditoría" CssClass="btn btn-primary" OnClick="btnProgramarAuditoria_Click" />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>

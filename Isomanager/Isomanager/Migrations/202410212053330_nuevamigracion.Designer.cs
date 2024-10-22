@@ -7,13 +7,13 @@ namespace Isomanager.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class nuevamigracion : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(nuevamigracion));
         
         string IMigrationMetadata.Id
         {
-            get { return "202410151856131_InitialCreate"; }
+            get { return "202410212053330_nuevamigracion"; }
         }
         
         string IMigrationMetadata.Source
