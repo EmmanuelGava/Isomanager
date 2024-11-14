@@ -23,7 +23,13 @@ namespace Isomanager.Models
         // Propiedad que representa los procesos relacionados con este usuario
         public virtual ICollection<Proceso> Procesos { get; set; }
 
+        //Datos propias de usuario
+        public virtual ICollection<Formacion> Formaciones { get; set; }  // Relación con la formación que ha recibido el usuario
+        public virtual ICollection<Desempeno> Desempenos { get; set; }  // Relación con los desempeños del usuario
+
         // Relación con las acciones que este usuario ha realizado
+
+
         public List<Proceso> ProcesosAsignados { get; set; }  // Procesos en los que este usuario es responsable
         public List<CambioProceso> CambiosRealizados { get; set; }  // Cambios que este usuario ha realizado
         public List<AuditoriaInternaProceso> AuditoriasRealizadas { get; set; }  // Auditorías que este usuario ha realizado
@@ -31,6 +37,10 @@ namespace Isomanager.Models
         public virtual ICollection<Norma> Normas { get; set; } // Colección de Normas
         public Usuarios()
         {
+            Desempenos = new List<Desempeno>();
+            Formaciones = new List<Formacion>();
+
+
             ProcesosAsignados = new List<Proceso>();
             CambiosRealizados = new List<CambioProceso>();
             AuditoriasRealizadas = new List<AuditoriaInternaProceso>();

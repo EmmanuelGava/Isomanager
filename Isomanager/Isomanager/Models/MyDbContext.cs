@@ -25,12 +25,15 @@ namespace Isomanager.Models
         public DbSet<MejoraProceso> MejoraProcesos { get; set; }  // Agrega el DbSet para MejoraProceso
         public DbSet<KPI> KPI { get; set; }
         public DbSet<EvaluacionProceso> EvaluacionProcesos { get; set; }
+        public DbSet<Formacion> Formaciones { get; set; }
+        public DbSet<Desempeno> Desempenos { get; set; }
 
 
         // Constructor para la conexión a la base de datos
         public MyDbContext() : base("name=isomanagerDB")
         {
-            // Database.SetInitializer(new CreateDatabaseIfNotExists<MyDbContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MyDbContext>());
+            
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -141,8 +144,18 @@ namespace Isomanager.Models
                 .HasForeignKey(m => m.UsuarioId)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Formacion>()
+      .HasRequired(f => f.Usuario) // Cada Formacion requiere un Usuario
+      .WithMany(u => u.Formaciones) // Un Usuario puede tener muchas Formaciones
+      .HasForeignKey(f => f.UsuarioId); // Clave foránea en Formacion
 
-            modelBuilder.Entity<TipoFactor>()
+            modelBuilder.Entity<Desempeno>()
+                .HasRequired(d => d.Usuario) // Cada Desempeno requiere un Usuario
+                .WithMany(u => u.Desempenos) // Un Usuario puede tener muchos Desempenos
+                .HasForeignKey(d => d.UsuarioId); // Clave foránea en Desempeno
+        
+
+        modelBuilder.Entity<TipoFactor>()
                 .HasMany(t => t.FactoresExternos)
                 .WithRequired(f => f.TipoFactor)
                 .HasForeignKey(f => f.TipoFactorId)

@@ -9,11 +9,11 @@
         <div class="row mb-4">
             <div class="col-md-6">
                 <h4>Tendencia de Desempeño</h4>
-                <canvas id="desempenoChart" width="400" height="200"></canvas>
+                <canvas id="ChartPromedioUsuario" width="400" height="200"></canvas>
             </div>
             <div class="col-md-6">
                 <h4>Horas de Formación por Área</h4>
-                <canvas id="formacionChart" width="400" height="200"></canvas>
+                <canvas id="ChartFormacionUsuario" width="400" height="200"></canvas>
             </div>
         </div>
 
@@ -70,56 +70,9 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Gráfico de Tendencia de Desempeño
-        var ctx1 = document.getElementById('desempenoChart').getContext('2d');
-        var desempenoChart = new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Promedio de Desempeño',
-                    data: [90, 92, 88, 95, 93, 97],
-                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
-                    borderColor: 'rgba(0, 123, 255, 1)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+    
 
-        // Gráfico de Horas de Formación por Área
-        var ctx2 = document.getElementById('formacionChart').getContext('2d');
-        var formacionChart = new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: ['Calidad', 'Seguridad', 'Ambiental', 'Procesos', 'Liderazgo'],
-                datasets: [{
-                    label: 'Horas de Formación',
-                    data: [20, 15, 25, 30, 10],
-                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
-                    borderColor: 'rgba(0, 123, 255, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
+<script src="../Scripts/Charts/graficos.js"></script>
+
 </asp:Content>

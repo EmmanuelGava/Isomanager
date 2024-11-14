@@ -104,3 +104,7 @@ body {
     background-color: #dc3545; /* Color de fondo para el botón de eliminar */
     border: none; /* Sin borde */
 }
+#miGrafico {
+    width: 100%; /* O un tamaño específico */
+    height: 100%; /* Altura del contenedor */
+}
