@@ -1,27 +1,23 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using Isomanager.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace Isomanager.Models
+public class Contexto
 {
-    [Table("Contexto")]
-    public class Contexto
-    {
-        [Key]
-        public int ContextoId { get; set; }  // Clave primaria de Contexto
+    [Key]
+    public int ContextoId { get; set; }  // Clave primaria de Contexto
 
-        // Relación uno a muchos con Procesos
-        public virtual ICollection<Proceso> Procesos { get; set; } = new HashSet<Proceso>();
+    // Clave foránea para Norma
+    public int NormaId { get; set; }  // Asegúrate de que esta propiedad exista
 
-        // Relación uno a muchos con FactoresExternos
-        public virtual ICollection<FactoresExternos> FactoresExternos { get; set; } = new HashSet<FactoresExternos>();
+    // Relación uno a muchos con Norma
+    [ForeignKey("NormaId")]
+    public virtual Norma Norma { get; set; }  // Relación uno a muchos
 
-        public virtual AlcanceSistemaGestion AlcanceSistemaGestion { get; set; }
-
-        // Relación uno a uno con Foda (ajustada)
-        public virtual Foda Foda { get; set; }  // Relación opcional
-
-        // Relación con Norma (propiedad de navegación)
-        public virtual Norma Norma { get; set; }  // Relación uno a uno
-    }
+    // Otras relaciones...
+    public virtual DefinicionObjetivoAlcance DefinicionObjetivoAlcance { get; set; }
+    public virtual ICollection<Proceso> Procesos { get; set; }
+    public virtual ICollection<FactoresExternos> FactoresExternos { get; set; }
+    public virtual Foda Foda { get; set; }  // Relación opcional
 }

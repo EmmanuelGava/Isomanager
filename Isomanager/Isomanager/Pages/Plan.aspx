@@ -37,7 +37,7 @@
                             <li>Programa de reconocimiento y motivación</li>
                             <li>Canal de comunicación interna y sugerencias</li>
                         </ul>
-                        <a href="Personas.aspx" class="btn btn-primary">Acceder</a>
+                        <a href="UsuariosPage.aspx" class="btn btn-primary">Acceder</a>
                     </div>
                 </div>
             </div>
@@ -141,7 +141,7 @@
             </div>
         </div>
         </div>
- <asp:ScriptManager ID="ScriptManager1" runat="server" />
+ 
     
     
 </asp:Content>

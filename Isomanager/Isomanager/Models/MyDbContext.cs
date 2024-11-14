@@ -1,5 +1,7 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Microsoft.Data.SqlClient;
 
 namespace Isomanager.Models
 {
@@ -9,21 +11,24 @@ namespace Isomanager.Models
         public DbSet<Document> Documents { get; set; }
         public DbSet<Norma> Normas { get; set; }
         public DbSet<Contexto> Contextos { get; set; }
+        public DbSet<DefinicionObjetivoAlcance> DefinicionesObjetivoAlcance { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<UbicacionGeografica> UbicacionesGeograficas { get; set; }
         public DbSet<Foda> Fodas { get; set; }
         public DbSet<Proceso> Procesos { get; set; }
-        public DbSet<AlcanceSistemaGestion> AlcanceSistemaGestiones { get; set; }
+
         public DbSet<FactoresExternos> FactoresExternos { get; set; }
+        public DbSet<TipoFactor> TiposFactores { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
-        // Nuevas clases
         public DbSet<CambioProceso> CambioProcesos { get; set; }  // Agrega el DbSet para CambioProceso
         public DbSet<AuditoriaInternaProceso> AuditoriaInternaProcesos { get; set; }  // Agrega el DbSet para AuditoriaInternaProceso
         public DbSet<MejoraProceso> MejoraProcesos { get; set; }  // Agrega el DbSet para MejoraProceso
         public DbSet<KPI> KPI { get; set; }
-        public DbSet<EvaluacionProceso>EvaluacionProcesos { get; set; }
-        
+        public DbSet<EvaluacionProceso> EvaluacionProcesos { get; set; }
+
 
         // Constructor para la conexión a la base de datos
-        public MyDbContext() : base("name=MyDbContext")
+        public MyDbContext() : base("name=isomanagerDB")
         {
             // Database.SetInitializer(new CreateDatabaseIfNotExists<MyDbContext>());
         }
@@ -35,11 +40,35 @@ namespace Isomanager.Models
             // Quitar la convención de pluralización automática de nombres de tablas
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            // Relación entre Norma y Contexto (uno a uno opcional)
+
+            // Configurar la relación uno a muchos entre Norma y Contexto
             modelBuilder.Entity<Norma>()
-                .HasOptional(n => n.Contexto)
-                .WithRequired(c => c.Norma)
-                .Map(m => m.MapKey("NormaId"));
+                .HasMany(n => n.Contextos) // Una Norma puede tener muchos Contextos
+                .WithRequired(c => c.Norma) // Cada Contexto requiere una Norma
+                .HasForeignKey(c => c.NormaId); // La propiedad de clave foránea en Contexto
+
+           modelBuilder.Entity<Norma>()
+                .HasRequired(n => n.Responsable) // Norma requiere un responsable
+                .WithMany(u => u.Normas) // Un usuario puede tener muchas normas
+                .HasForeignKey(n => n.ResponsableId); // Clave foránea
+
+
+            // Relación uno a uno entre Contexto y DefinicionObjetivoAlcance
+            modelBuilder.Entity<Contexto>()
+                .HasOptional(c => c.DefinicionObjetivoAlcance)
+                .WithRequired(d => d.Contexto);
+
+            // Configurar la relación uno a muchos entre DefinicionObjetivoAlcance y Area
+            modelBuilder.Entity<DefinicionObjetivoAlcance>()
+                .HasMany(d => d.Areas)
+                .WithRequired(a => a.DefinicionObjetivoAlcance)
+                .HasForeignKey(a => a.ContextoId);
+
+            // Configurar la relación uno a muchos entre DefinicionObjetivoAlcance y UbicacionGeografica
+            modelBuilder.Entity<DefinicionObjetivoAlcance>()
+                .HasMany(d => d.Ubicaciones)
+                .WithRequired(u => u.DefinicionObjetivoAlcance)
+                .HasForeignKey(u => u.DefinicionObjetivoAlcanceId);
 
             // Relación entre Contexto y Proceso (uno a muchos)
             modelBuilder.Entity<Contexto>()
@@ -59,12 +88,6 @@ namespace Isomanager.Models
             modelBuilder.Entity<Contexto>()
                 .HasOptional(c => c.Foda)
                 .WithRequired(f => f.Contexto)
-                .WillCascadeOnDelete(false);
-
-            // Relación entre Contexto y AlcanceSistemaGestion (uno a uno opcional)
-            modelBuilder.Entity<Contexto>()
-                .HasOptional(c => c.AlcanceSistemaGestion)
-                .WithMany()
                 .WillCascadeOnDelete(false);
 
             // Relación entre Proceso y Usuario (responsable, obligatoria)
@@ -88,7 +111,7 @@ namespace Isomanager.Models
                 .HasForeignKey(c => c.ProcesoId)
                 .WillCascadeOnDelete(true);
 
-         
+
 
             // Relación entre Usuario y Proceso
             modelBuilder.Entity<Usuarios>()
@@ -117,6 +140,15 @@ namespace Isomanager.Models
                 .WithRequired(m => m.SugeridoPor)
                 .HasForeignKey(m => m.UsuarioId)
                 .WillCascadeOnDelete(false);
+
+
+            modelBuilder.Entity<TipoFactor>()
+                .HasMany(t => t.FactoresExternos)
+                .WithRequired(f => f.TipoFactor)
+                .HasForeignKey(f => f.TipoFactorId)
+                .WillCascadeOnDelete(false);
+
+
         }
 
 

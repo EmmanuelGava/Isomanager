@@ -11,7 +11,7 @@ namespace Isomanager
 {
 
 
-    public partial class _Default
+    public partial class Default
     {
     }
 }

@@ -24,6 +24,15 @@ namespace Isomanager.Pages
         protected global::System.Web.UI.WebControls.Label lblNormaActual;
 
         /// <summary>
+        /// Control btnAlcanceSistema.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAlcanceSistema;
+
+        /// <summary>
         /// Control btnFODA.
         /// </summary>
         /// <remarks>
@@ -148,14 +157,5 @@ namespace Isomanager.Pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnFactoresExternos;
-
-        /// <summary>
-        /// Control btnAlcanceSistema.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAlcanceSistema;
     }
 }

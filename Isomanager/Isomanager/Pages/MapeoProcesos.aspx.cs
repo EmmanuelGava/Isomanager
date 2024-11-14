@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,6 +13,8 @@ namespace Isomanager.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            Debug.WriteLine("Inicio de Page_Load - ContextoId en sesión: " + Session["ContextoId"]);
             if (!IsPostBack)
             {
                 if (Session["NormaId"] != null)
@@ -39,13 +42,13 @@ namespace Isomanager.Pages
 
         private void CargarProcesosClave()
         {
-            if (Session["contextoId"] == null)
+            if (Session["ContextoId"] == null)
             {
                 lblNormaActual.Text = "No se ha seleccionado un contexto válido.";
                 return;
             }
 
-            int contextoId = (int)Session["contextoId"]; // Validar que contextoId exista
+            int contextoId = (int)Session["ContextoId"]; // Validar que contextoId exista
 
             using (var context = new MyDbContext())
             {
@@ -212,6 +215,12 @@ namespace Isomanager.Pages
                 return;
             }
 
+            if (Session["ContextoId"] == null)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('El ContextoId no está disponible.');", true);
+                return;
+            }
+
             try
             {
                 using (var context = new MyDbContext())
@@ -235,7 +244,7 @@ namespace Isomanager.Pages
                             Nombre = nombre,
                             Propietario = propietario,
                             Objetivo = objetivo,
-                            ContextoId = (int)Session["contextoId"]
+                            ContextoId = (int)Session["ContextoId"]
                         };
 
                         context.Procesos.Add(nuevoProceso);
@@ -248,11 +257,11 @@ namespace Isomanager.Pages
             }
             catch (DbUpdateException dbEx)
             {
-                // Mostrar detalles de la excepción interna
                 string mensajeError = dbEx.InnerException != null ? dbEx.InnerException.Message : dbEx.Message;
                 ScriptManager.RegisterStartupScript(this, GetType(), "showalert", $"alert('Error al guardar el proceso: {mensajeError}');", true);
             }
         }
+
 
         protected void btnAgregarMejora_Click(object sender, EventArgs e)
         {
@@ -318,12 +327,12 @@ namespace Isomanager.Pages
 
         private void CargarMejoras()
         {
-            if (Session["contextoId"] == null)
+            if (Session["ContextoId"] == null)
             {
                 return; // No hay contexto seleccionado
             }
 
-            int contextoId = (int)Session["contextoId"];
+            int contextoId = (int)Session["ContextoId"];
 
             using (var context = new MyDbContext())
             {

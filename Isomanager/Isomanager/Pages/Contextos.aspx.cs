@@ -2,142 +2,126 @@
 using System.Linq;
 using System.Web.UI;
 using Isomanager.Models;
-
+using System.Data.Entity;
+using System.Diagnostics;
 
 namespace Isomanager.Pages
 {
-    public partial class Contextos : System.Web.UI.Page
+    public partial class Contextos : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Código para el evento Page_Load
+            Debug.WriteLine("Inicio de Page_Load - ContextoId en sesión: " + Session["ContextoId"]);
+
             if (!IsPostBack)
             {
-                if (Session["NormaId"] != null)
+                if (Session["ContextoId"] != null && int.TryParse(Session["ContextoId"].ToString(), out int contextoId))
                 {
-                    int normaId = (int)Session["NormaId"];
                     using (var context = new MyDbContext())
                     {
-                        var norma = context.Normas.FirstOrDefault(n => n.NormaId == normaId);
-                        if (norma != null)
+                        var contexto = context.Contextos.Include(c => c.Norma)
+                                                         .FirstOrDefault(c => c.ContextoId == contextoId);
+
+                        if (contexto != null)
                         {
-                            lblNormaActual.Text = $"Norma: {norma.Titulo}";
+                            lblNormaActual.Text = $"Norma: {contexto.Norma.Titulo}";
+                            Debug.WriteLine("Norma encontrada: " + contexto.Norma.Titulo);
+
+                            var fodaExistente = context.Fodas.FirstOrDefault(f => f.ContextoId == contextoId);
+                            if (fodaExistente != null)
+                            {
+                                lblFortalezas.Text = fodaExistente.Fortalezas;
+                                lblDebilidades.Text = fodaExistente.Debilidades;
+                                lblOportunidades.Text = fodaExistente.Oportunidades;
+                                lblAmenazas.Text = fodaExistente.Amenazas;
+
+                                MostrarFODA.Visible = true;
+                                Debug.WriteLine("FODA encontrado y cargado en etiquetas.");
+                            }
+                        }
+                        else
+                        {
+                            lblNormaActual.Text = "No se ha encontrado el contexto.";
+                            Debug.WriteLine("Contexto no encontrado para el ContextoId: " + contextoId);
                         }
                     }
                 }
                 else
                 {
-                    lblNormaActual.Text = "No se ha seleccionado una norma";
+                    lblNormaActual.Text = "No se ha seleccionado un contexto.";
+                    Debug.WriteLine("Error: ContextoId en sesión no es válido o no es un entero.");
                 }
 
-                // Asegúrate de que los paneles o secciones estén ocultos al cargar la página inicialmente
                 CargarFODA.Visible = false;
-                MostrarFODA.Visible = false;
-
-                // Comprobar si hay un ContextoId en la sesión
-                int? contextoId = Session["contextoId"] as int?;
-                if (contextoId.HasValue)
-                {
-                    using (var context = new MyDbContext())
-                    {
-                        // Verificar si ya existe un FODA para este ContextoId
-                        var fodaExistente = context.Fodas.FirstOrDefault(f => f.ContextoId == contextoId.Value);
-                        if (fodaExistente != null)
-                        {
-                            // Cargar los datos del FODA en los labels
-                            lblFortalezas.Text = fodaExistente.Fortalezas;
-                            lblDebilidades.Text = fodaExistente.Debilidades;
-                            lblOportunidades.Text = fodaExistente.Oportunidades;
-                            lblAmenazas.Text = fodaExistente.Amenazas;
-
-                            // Mostrar el panel de resultados
-                            MostrarFODA.Visible = true;
-                        }
-                    }
-                }
             }
         }
 
         protected void btnFODA_Click(object sender, EventArgs e)
         {
-            
-            if (CargarFODA.Visible == false)
-            {
-                CargarFODA.Visible = true;
-            }else
-            {
-                CargarFODA.Visible = false;
-            }    
+            CargarFODA.Visible = !CargarFODA.Visible;
+            Debug.WriteLine("btnFODA_Click - CargarFODA.Visible cambiado a: " + CargarFODA.Visible);
         }
 
         protected void btnGuardarFODA_Click(object sender, EventArgs e)
         {
-            // Guardar el contenido de los TextBox en las etiquetas
             lblFortalezas.Text = txtFortalezas.Text;
             lblDebilidades.Text = txtDebilidades.Text;
             lblOportunidades.Text = txtOportunidades.Text;
             lblAmenazas.Text = txtAmenazas.Text;
 
-            // Asignar el ContextoId desde la sesión
-            int? contextoId = Session["contextoId"] as int?;
-
-            if (contextoId.HasValue)
+            if (Session["ContextoId"] != null && int.TryParse(Session["ContextoId"].ToString(), out int contextoId))
             {
+                Debug.WriteLine("btnGuardarFODA_Click - Intentando guardar FODA. ContextoId: " + contextoId);
+
                 using (var context = new MyDbContext())
                 {
-                    // Verificar si el ContextoId existe
-                    var contextoExistente = context.Contextos.FirstOrDefault(c => c.ContextoId == contextoId.Value);
+                    var contextoExistente = context.Contextos.FirstOrDefault(c => c.ContextoId == contextoId);
                     if (contextoExistente == null)
                     {
+                        Debug.WriteLine("Error: El Contexto no existe. ContextoId: " + contextoId);
                         ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error: El Contexto no existe.');", true);
                         return;
                     }
 
-                    var foda = new Foda
-                    {
-                        ContextoId = contextoId.Value, // Usar el ContextoId de la sesión
-                        Fortalezas = txtFortalezas.Text,
-                        Debilidades = txtDebilidades.Text,
-                        Oportunidades = txtOportunidades.Text,
-                        Amenazas = txtAmenazas.Text,
-                    };
-
-                    // Verificar si ya existe un FODA para este ContextoId
-                    var fodaExistente = context.Fodas.FirstOrDefault(f => f.ContextoId == foda.ContextoId);
+                    var fodaExistente = context.Fodas.FirstOrDefault(f => f.ContextoId == contextoId);
                     if (fodaExistente != null)
                     {
-                        // Actualizar el FODA existente
-                        fodaExistente.Fortalezas = foda.Fortalezas;
-                        fodaExistente.Debilidades = foda.Debilidades;
-                        fodaExistente.Oportunidades = foda.Oportunidades;
-                        fodaExistente.Amenazas = foda.Amenazas;
+                        fodaExistente.Fortalezas = txtFortalezas.Text;
+                        fodaExistente.Debilidades = txtDebilidades.Text;
+                        fodaExistente.Oportunidades = txtOportunidades.Text;
+                        fodaExistente.Amenazas = txtAmenazas.Text;
+                        Debug.WriteLine("FODA existente actualizado.");
                     }
                     else
                     {
-                        // Agregar el nuevo FODA
+                        var foda = new Foda
+                        {
+                            ContextoId = contextoId,
+                            Fortalezas = txtFortalezas.Text,
+                            Debilidades = txtDebilidades.Text,
+                            Oportunidades = txtOportunidades.Text,
+                            Amenazas = txtAmenazas.Text,
+                        };
                         context.Fodas.Add(foda);
+                        Debug.WriteLine("Nuevo FODA agregado.");
                     }
 
-                    // Guardar los cambios en la base de datos
                     context.SaveChanges();
                 }
 
-                // Mostrar mensaje de éxito
                 ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('FODA guardado exitosamente.');", true);
             }
             else
             {
-                // Mostrar mensaje de error si no hay ContextoId
+                Debug.WriteLine("Error: No se ha seleccionado un Contexto.");
                 ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error: No se ha seleccionado un Contexto.');", true);
             }
 
-            // Limpiar los campos de texto después de guardar
             txtFortalezas.Text = "";
             txtDebilidades.Text = "";
             txtOportunidades.Text = "";
             txtAmenazas.Text = "";
 
-            // Ocultar el formulario de FODA y mostrar los resultados
             CargarFODA.Visible = false;
             MostrarFODA.Visible = true;
         }
@@ -145,18 +129,19 @@ namespace Isomanager.Pages
         protected void btnMapeoProcesos_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Pages/MapeoProcesos");
+            Debug.WriteLine("Redirigiendo a MapeoProcesos.aspx");
         }
 
         protected void btnFactoresExternos_Click(object sender, EventArgs e)
         {
-            // Código para el botón Factores Externos
+            Response.Redirect("~/Pages/Factores.aspx");
+            Debug.WriteLine("Redirigiendo a Factores.aspx");
         }
 
         protected void btnAlcanceSistema_Click(object sender, EventArgs e)
         {
-            // Código para el botón Alcance del Sistema
+            Response.Redirect("~/Pages/ObjetivoAlcanceDetallado.aspx");
+            Debug.WriteLine("Redirigiendo a ObjetivoAlcanceDetallado.aspx");
         }
-
-        
     }
 }

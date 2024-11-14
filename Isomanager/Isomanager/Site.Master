@@ -6,13 +6,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Mi aplicación ASP.NET</title>
-
+    <link href="~/CSS/styles.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
 <body>
     <form runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -24,11 +25,11 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/Plan.aspx">Plan</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/CrearNorma.aspx">Default</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/CrearNorma.aspx">Normas</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/Plan.aspx">Plan</a></li>                  
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/Documentos.aspx">Documentación</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/Auditorias.aspx">Auditorías</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/Contact.aspx">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/UsuariosPage.aspx">Usuarios</a></li>
                     </ul>
                 </div>
             </div>

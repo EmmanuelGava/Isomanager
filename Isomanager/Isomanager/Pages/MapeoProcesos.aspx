@@ -18,8 +18,8 @@
                 <button class="nav-link" id="diagrama-tab" data-bs-toggle="tab" data-bs-target="#diagrama" type="button" role="tab" aria-controls="diagrama" aria-selected="false">Diagrama de Flujo</button>
             </li>
         </ul>
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
+        
+    </div>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <asp:GridView ID="gvProcesosClave" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">
@@ -41,6 +41,7 @@
 
                 <asp:Button ID="btnAddProcess" runat="server" Text="Añadir Proceso" CssClass="btn btn-primary mt-3"
                     data-bs-toggle="modal" data-bs-target="#addProcessModal" />
+        
             </ContentTemplate>
         </asp:UpdatePanel>
 

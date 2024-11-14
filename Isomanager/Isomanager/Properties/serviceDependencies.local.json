@@ -1,3 +1,12 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ServiceLinker/locations/canadacentral/connectors/isomanagerserver.database.windows.net_7C2DDBBFCC",
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/isomanagersv/databases/isomanagerDB",
+      "type": "mssql.azure",
+      "connectionId": "isomanagerserver.database.windows.net",
+      "dynamicId": null
+    }
+  }
 }
